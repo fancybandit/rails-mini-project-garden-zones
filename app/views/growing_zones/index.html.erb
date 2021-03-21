@@ -1,6 +1,6 @@
 
 <ul>
 <% @growing_zones.each do |g| %>
-    <li><%= g.name %></li>
+    <li><%= link_to g.name, growing_zone_path(g) %></li>
 <% end %>
 </ul>

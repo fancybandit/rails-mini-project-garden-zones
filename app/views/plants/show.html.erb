@@ -1,0 +1,13 @@
+
+<h1>Plant name: <%= @plant.name %></h1>
+<h3>Scientific name: <%= @plant.scientific_name %></h3>
+
+<h3>Growing zones:</h3>
+<ul>
+    <% @growing_zones.each do |g| %>
+        <li><%= g.name %></li>
+    <% end %>
+</ul><br>
+
+<h1>Plant image:</h1>
+<img src="<%= @plant.image_link %>">

@@ -16,13 +16,25 @@ class PlantsController < ApplicationController
     end
 
     def create
-        binding.pry
-        # plant = Plant.new(plant_params(:name, :scientific_name, :image_link))
-        # plant.save
+        plant = Plant.new(plant_params(:name, :scientific_name, :image_link))
+        if plant.save
+            associate_growing_zones_with_new_plant(plant)
+        end
         redirect_to plant_path(plant)
     end
 
     private
+
+    def associate_growing_zones_with_new_plant(plant)
+        growing_zone_ids.each do |i|
+            gz = GrowingZone.find_by(zone_id: i)
+            gz.plants << plant if gz.plants.none? {|p| p == plant}
+        end
+    end
+
+    def growing_zone_ids
+        params.require(:plant).require(:growing_zone).require(:zone_id)
+    end
 
     def plant_params(*args)
         params.require(:plant).permit(*args)

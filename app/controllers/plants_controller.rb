@@ -18,7 +18,7 @@ class PlantsController < ApplicationController
     def create
         plant = Plant.new(plant_params(:name, :scientific_name, :image_link))
         if plant.save
-            associate_growing_zones_with_new_plant(plant)
+            associate_growing_zones_with_plant(plant)
         end
         redirect_to plant_path(plant)
     end
@@ -32,7 +32,14 @@ class PlantsController < ApplicationController
         plant = Plant.find_by(id: params[:id])
         plant.update(plant_params(:name, :scientific_name, :image_link))
         if plant.save
-            associate_growing_zones_with_new_plant(plant)
+            plant.growing_zones.each do |zone|
+                included = growing_zone_ids.include?(zone.zone_id)
+                if !included
+                    zone.plants.delete(plant)
+                    plant.save
+                end
+            end
+            associate_growing_zones_with_plant(plant)
         end
         redirect_to plant_path(plant)
     end
@@ -45,7 +52,7 @@ class PlantsController < ApplicationController
 
     private
 
-    def associate_growing_zones_with_new_plant(plant)
+    def associate_growing_zones_with_plant(plant)
         growing_zone_ids.each do |i|
             gz = GrowingZone.find_by(zone_id: i)
             gz.plants << plant if gz.plants.none? {|p| p == plant}

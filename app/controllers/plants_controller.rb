@@ -23,6 +23,20 @@ class PlantsController < ApplicationController
         redirect_to plant_path(plant)
     end
 
+    def edit
+        @plant = Plant.find_by(id: params[:id])
+        @growing_zones = GrowingZone.order(:name)
+    end
+
+    def update
+        plant = Plant.find_by(id: params[:id])
+        plant.update(plant_params(:name, :scientific_name, :image_link))
+        if plant.save
+            associate_growing_zones_with_new_plant(plant)
+        end
+        redirect_to plant_path(plant)
+    end
+
     private
 
     def associate_growing_zones_with_new_plant(plant)

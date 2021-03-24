@@ -2,6 +2,8 @@
 <h1>Plant name: <%= @plant.name %></h1>
 <h3>Scientific name: <%= @plant.scientific_name %></h3>
 
+<div><%= link_to "Edit Plant", edit_plant_path(@plant) %></div>
+
 <h3>Growing zones:</h3>
 <ul>
     <% @growing_zones.each do |g| %>

@@ -10,32 +10,6 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_20_192157) do
+ActiveRecord::Schema.define(version: 0) do
 
-  create_table "gardens", force: :cascade do |t|
-    t.integer "plant_id", null: false
-    t.integer "growing_zone_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["growing_zone_id"], name: "index_gardens_on_growing_zone_id"
-    t.index ["plant_id"], name: "index_gardens_on_plant_id"
-  end
-
-  create_table "growing_zones", force: :cascade do |t|
-    t.string "name"
-    t.integer "zone_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "plants", force: :cascade do |t|
-    t.string "name"
-    t.string "scientific_name"
-    t.text "image_link"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  add_foreign_key "gardens", "growing_zones", on_delete: :cascade
-  add_foreign_key "gardens", "plants", on_delete: :cascade
 end

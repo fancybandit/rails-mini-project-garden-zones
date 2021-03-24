@@ -13,6 +13,7 @@ zone_ids.each do |zone_id|
 
 end
 
+## FOLLOWING CODE TO BE REMOVED AT A LATER TIME
 # zone_ids = [10]
 # zone_ids.each do |zone_id|
 #     growing_zone = GrowingZone.find_by(zone_id: zone_id)

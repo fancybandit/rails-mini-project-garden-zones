@@ -37,6 +37,12 @@ class PlantsController < ApplicationController
         redirect_to plant_path(plant)
     end
 
+    def delete
+        plant = Plant.find_by(id: params[:id])
+        plant.destroy
+        redirect_to growing_zones_path
+    end
+
     private
 
     def associate_growing_zones_with_new_plant(plant)

@@ -4,5 +4,6 @@ Rails.application.routes.draw do
 
   resources :growing_zones, only: [:index, :show]
   resources :plants, only: [:show, :new, :create, :edit, :update]
+  get 'plants/:id/delete', to: 'plants#delete', as: 'delete_plant'
 end
 

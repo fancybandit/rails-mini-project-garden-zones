@@ -36,6 +36,6 @@ ActiveRecord::Schema.define(version: 2021_03_20_192157) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  add_foreign_key "gardens", "growing_zones"
-  add_foreign_key "gardens", "plants"
+  add_foreign_key "gardens", "growing_zones", on_delete: :cascade
+  add_foreign_key "gardens", "plants", on_delete: :cascade
 end
